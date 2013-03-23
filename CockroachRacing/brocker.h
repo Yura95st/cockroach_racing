@@ -17,6 +17,5 @@ private:
 	int brokerRate;
 	double brokerProfit;
 	int stakeArray[];
-	//
 };
 
