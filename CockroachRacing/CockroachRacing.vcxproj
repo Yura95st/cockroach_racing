@@ -79,12 +79,14 @@
     <ClCompile Include="Competitor.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Stake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="brocker.h" />
     <ClInclude Include="BrockerResult.h" />
     <ClInclude Include="Competitor.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="Stake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
