@@ -16,7 +16,7 @@ public:
 	List():Tail(NULL),nodeCounter(0){};
 	~List();
 	void show();
-	void add(int x);
+	void add(T val);
 	int count();
 	Node* find(int idx);
 	void del(int idx);

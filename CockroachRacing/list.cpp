@@ -11,7 +11,7 @@ List<T>::~List()
 }
 
 template <class T>
-void List<T>::add(int val)
+void List<T>::add(T val)
 {
 	Node *newElem = new Node;
 	newElem->value=val;
