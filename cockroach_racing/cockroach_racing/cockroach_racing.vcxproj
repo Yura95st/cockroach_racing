@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{053F33A3-9776-4EB9-92E9-B1DB0D1EEB39}</ProjectGuid>
+    <ProjectGuid>{E9D4519C-BBD3-466F-B13B-B4F6B1951C7F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CockroachRacing</RootNamespace>
+    <RootNamespace>cockroach_racing</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -74,19 +74,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="brocker.cpp" />
-    <ClCompile Include="BrockerResult.cpp" />
-    <ClCompile Include="Competitor.cpp" />
-    <ClCompile Include="list.cpp" />
+    <ClCompile Include="Broker.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="Stake.cpp" />
+    <ClCompile Include="Track.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="brocker.h" />
-    <ClInclude Include="BrockerResult.h" />
-    <ClInclude Include="Competitor.h" />
+    <ClInclude Include="Broker.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="pugiconfig.hpp" />
+    <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="Stake.h" />
+    <ClInclude Include="Track.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
