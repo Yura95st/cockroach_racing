@@ -54,7 +54,7 @@ List<Track*> Broker::createTrackList()
 
 	List<Track*> trackList;
 	
-	for (xml_node trackDOM = doc.child("ResultsList").child("Track"); trackDOM != NULL; trackDOM = trackDOM.next_sibling()) {
+	for (xml_node trackDOM = doc.child("RaceResults").child("Track"); trackDOM != NULL; trackDOM = trackDOM.next_sibling()) {
 		Track* track = new Track();
 
 		track->setId(trackDOM.child("Track_id").text().as_int());
@@ -112,7 +112,7 @@ void Broker::addUniqueUserListElem(User* user)
 void Broker::createBrokerResultsFile()
 {
 	string fileContent("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-	fileContent += "<UserList>";
+	fileContent += "<BrokerResults>";
 
 	for(int k=0, user_lenght = userList.count(); k<user_lenght; ++k) {
 		Node<User*>* user_elem = userList.find(k);
@@ -135,7 +135,7 @@ void Broker::createBrokerResultsFile()
 		fileContent += "</User>";
 	}
 
-	fileContent += "</UserList>";
+	fileContent += "</BrokerResults>";
 
 	FILE *res_file = fopen(resultsFileName.c_str(), "w");
 	if (res_file == NULL) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ResultsList>
+<RaceResults>
 <Track>
     
     <Track_id>1</Track_id>
@@ -21,4 +21,4 @@
     </Winner>
 
 </Track>
-</ResultsList>
+</RaceResults>
