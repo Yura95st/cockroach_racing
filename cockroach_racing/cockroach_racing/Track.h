@@ -1,20 +1,19 @@
 #pragma once
+#include "Roach.h"
+#include "list.h"
+
 class Track
 {
-private:
-    int id;
-	int winner_id;
-	int winner_team_id;
-
 public:
 	Track(void);
 	~Track(void);
-
 	int getId();
-	bool setId(int _id);
-	int getWinnerId();
-	bool setWinnerId(int _id);
-	int getWinnerTeamId();
-	bool setWinnerTeamId(int _team_id);
+	bool setId(int id);
+	void Track::setNewRoach(Roach* roach);
+	Roach* getWinner();
+
+private:
+	int _id;
+	List<Roach*> _roach_list;
 };
 

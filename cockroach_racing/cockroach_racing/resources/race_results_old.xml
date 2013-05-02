@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RaceResults>
+<Track>
+    
+    <Track_id>1</Track_id>
+
+    <Winner>
+        <Cockroach_id>1</Cockroach_id>
+        <Team_id>1</Team_id>
+    </Winner>
+
+</Track>
+
+<Track>
+    
+    <Track_id>2</Track_id>
+
+    <Winner>
+        <Cockroach_id>1</Cockroach_id>
+        <Team_id>2</Team_id>
+    </Winner>
+
+</Track>
+</RaceResults>

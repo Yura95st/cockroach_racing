@@ -42,8 +42,3 @@ bool User::setValue(int &_val)
 		return false;
 	}
 }
-
-void User::out()
-{
-	cout << "    user_id: " << this->id << "\n" << "    value: " << this->value<<"\n";
-}

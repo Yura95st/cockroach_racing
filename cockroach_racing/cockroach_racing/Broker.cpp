@@ -54,15 +54,21 @@ List<Track*> Broker::createTrackList()
 
 	List<Track*> trackList;
 	
-	for (xml_node trackDOM = doc.child("RaceResults").child("Track"); trackDOM != NULL; trackDOM = trackDOM.next_sibling()) {
-		Track* track = new Track();
+	for (xml_node trackDOM = doc.child("raceResults").child("race"); trackDOM != NULL; trackDOM = trackDOM.next_sibling()) {
+		Track* track = new Track();		
 
-		track->setId(trackDOM.child("Track_id").text().as_int());
-		for (xml_node winnerDOM = trackDOM.child("Winner"); winnerDOM != NULL; winnerDOM = winnerDOM.next_sibling()) {
-			track->setWinnerId(winnerDOM.child("Cockroach_id").text().as_int());
-			track->setWinnerTeamId(winnerDOM.child("Team_id").text().as_int());		
-		}
-		
+		track->setId(trackDOM.child("id").text().as_int());
+		for (xml_node roachDOM = trackDOM.child("roach"); roachDOM != NULL; roachDOM = roachDOM.next_sibling()) {
+			int roach_position = roachDOM.child("position").text().as_int();
+			if (roach_position <= 3 && roach_position > 0) {
+				Roach* roach = new Roach();
+				roach->setId(roachDOM.child("roach_id").text().as_int());
+				roach->setTeamId(roachDOM.child("team_id").text().as_int());
+				roach->setPosition(roach_position);
+
+				track->setNewRoach(roach);
+			}			
+		}		
 		trackList.add(track);
 	}
 
@@ -72,18 +78,25 @@ List<Track*> Broker::createTrackList()
 int Broker::createUserList(List<Track*> &trackList, List<Stake*> &stakeList)
 {
 	for (int i=0, track_length = trackList.count(); i<track_length; ++i) {
-		Node<Track*>* track = trackList.find(i);
+		Track* track = trackList.find(i)->value;
 		for (int j=0, stake_length = stakeList.count(); j<stake_length; ++j) {			
-			Node<Stake*>* stake = stakeList.find(j);
-			if (track->value->getId() == stake->value->getTrackId() 
-				&& track->value->getWinnerTeamId() == stake->value->getTeamId()) {
+			Stake* stake = stakeList.find(j)->value;
+
+			//if (track->getId() == stake->getTrackId() 
+			//	&& track->getWinner()->getTeamId() == stake->getTeamId()) {
+
+			if (track->getId() == stake->getTrackId()) {
+				Roach* winner = track->getWinner();
+				int id = winner->getTeamId();
+				if (id == stake->getTeamId()) {
 					User* user = new User();
-					int user_id = stake->value->getUserId();
-					int value = stake->value->getValue() * brokerInterest;
+					int user_id = stake->getUserId();
+					int value = stake->getValue() * brokerInterest;
 					user->setId(user_id);
 					user->setValue(value);
 
 					addUniqueUserListElem(user);
+				}
 			}
 		}
 	}

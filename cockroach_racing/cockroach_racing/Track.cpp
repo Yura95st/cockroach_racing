@@ -12,42 +12,30 @@ Track::~Track(void)
 
 int Track::getId()
 {
-	return this->id;
+	return this->_id;
 }
 
-bool Track::setId(int _id)
+bool Track::setId(int id)
 {
-	if (_id > 0) {
-		this->id = _id;
+	if (id > 0) {
+		this->_id = id;
 		return true;
 	}
 	return false;
 }
 
-int Track::getWinnerId()
+void Track::setNewRoach(Roach* roach)
 {
-	return this->winner_id;
+	this->_roach_list.add(roach);
 }
 
-bool Track::setWinnerId(int _id)
+Roach* Track::getWinner()
 {
-	if (_id > 0) {
-		this->winner_id = _id;
-		return true;
+	for (int i=0, count = _roach_list.count(); i<count; ++i) {
+		Roach* roach = _roach_list.find(i)->value;
+		if (roach->getPosition() == 1) {
+			return roach;
+		}
 	}
-	return false;
-}
-
-int Track::getWinnerTeamId()
-{
-	return this->winner_team_id;
-}
-
-bool Track::setWinnerTeamId(int _team_id)
-{
-	if (_team_id > 0) {
-		this->winner_team_id = _team_id;
-		return true;
-	}
-	return false;
+	return NULL;
 }
