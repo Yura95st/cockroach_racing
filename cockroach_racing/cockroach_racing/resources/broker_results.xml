@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?><BrokerResults><User><User_id>2</User_id><Value>300</Value></User><User><User_id>1</User_id><Value>300</Value></User></BrokerResults>
+<?xml version="1.0" encoding="utf-8"?><brokerResults><user><id>1</id><value>200</value></user><user><id>2</id><value>700</value></user></brokerResults>

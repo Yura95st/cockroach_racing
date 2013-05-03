@@ -3,10 +3,13 @@
 using namespace std;
 using namespace pugi;
 
+string Broker::brokerFileName = "resources/broker.xml";
 string Broker::stakesFileName = "resources/stakes.xml";
 string Broker::raceResultsFileName = "resources/race_results.xml";
 string Broker::resultsFileName = "resources/broker_results.xml";
 int Broker::brokerInterest = 2;
+int Broker::brokerStartValue = 9999999;
+int Broker::brokerValue = 0;
 
 Broker::Broker(void)
 {
@@ -15,6 +18,44 @@ Broker::Broker(void)
 
 Broker::~Broker(void)
 {
+}
+
+void Broker::init()
+{
+	if (fopen(brokerFileName.c_str(), "r") == NULL) {
+		brokerValue = brokerStartValue;
+	}
+	else {
+		xml_document doc;
+		xml_parse_result result = doc.load_file(brokerFileName.c_str());
+
+		if (!result) {
+			throw(Exception("Error while parsing XML file", 100));
+		}
+
+		brokerValue = doc.child("broker").child("value").text().as_int();
+	}
+}
+
+void Broker::createBrokerFile()
+{
+	if (brokerValue < 0) {
+		brokerValue = brokerStartValue;
+	}
+
+	string fileContent("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+	stringstream ss;
+	ss << brokerValue;
+
+	fileContent += "<broker><value>" + ss.str() + "</value></broker>";
+
+	FILE *res_file = fopen(brokerFileName.c_str(), "w");
+	if (res_file == NULL) {
+		throw(Exception("Error while writing to the result file", 101));
+	}
+
+	fprintf(res_file, "%s", fileContent.c_str());
+	fclose(res_file);
 }
 
 List<Stake*> Broker::createStakeList()
@@ -28,16 +69,17 @@ List<Stake*> Broker::createStakeList()
 
 	List<Stake*> stakeList;
 	
-	for (xml_node stakeDOM = doc.child("StakeList").child("Stake"); stakeDOM != NULL; stakeDOM = stakeDOM.next_sibling()) {
+	for (xml_node stakeDOM = doc.child("stakeList").child("stake"); stakeDOM != NULL; stakeDOM = stakeDOM.next_sibling()) {
 		Stake* stake = new Stake();
 
-		stake->setId(stakeDOM.child("Stake_id").text().as_int());
-		stake->setUserId(stakeDOM.child("User_id").text().as_int());
-		stake->setTrackId(stakeDOM.child("Track_id").text().as_int());
-		stake->setTeamId(stakeDOM.child("Team_id").text().as_int());
-		stake->setValue(stakeDOM.child("Stake_value").text().as_int());
+		stake->setId(stakeDOM.child("id").text().as_int());
+		stake->setUserId(stakeDOM.child("user_id").text().as_int());
+		stake->setTrackId(stakeDOM.child("track_id").text().as_int());
+		stake->setTeamId(stakeDOM.child("team_id").text().as_int());
+		stake->setValue(stakeDOM.child("value").text().as_int());
 		
 		stakeList.add(stake);
+		brokerValue += stake->getValue();
 	}
 
 	return stakeList;
@@ -96,6 +138,7 @@ int Broker::createUserList(List<Track*> &trackList, List<Stake*> &stakeList)
 					user->setValue(value);
 
 					addUniqueUserListElem(user);
+					brokerValue -= value;
 				}
 			}
 		}
@@ -125,30 +168,22 @@ void Broker::addUniqueUserListElem(User* user)
 void Broker::createBrokerResultsFile()
 {
 	string fileContent("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-	fileContent += "<BrokerResults>";
+	fileContent += "<brokerResults>";
 
 	for(int k=0, user_lenght = userList.count(); k<user_lenght; ++k) {
 		Node<User*>* user_elem = userList.find(k);
 		if (user_elem == NULL) {
 			continue;
 		}
-		stringstream ss, ss2;
+		stringstream ss, ss2;	
 		
+		ss << user_elem->value->getId();
+		ss2 << user_elem->value->getValue();
 
-		fileContent += "<User>";
-			fileContent += "<User_id>";
-				ss << user_elem->value->getId();
-				fileContent += ss.str();
-			fileContent += "</User_id>";
-
-			fileContent += "<Value>";
-				ss2 << user_elem->value->getValue();
-				fileContent += ss2.str();
-			fileContent += "</Value>";
-		fileContent += "</User>";
+		fileContent += "<user><id>" + ss.str() + "</id><value>" + ss2.str() + "</value></user>";
 	}
 
-	fileContent += "</BrokerResults>";
+	fileContent += "</brokerResults>";
 
 	FILE *res_file = fopen(resultsFileName.c_str(), "w");
 	if (res_file == NULL) {

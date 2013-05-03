@@ -16,12 +16,17 @@ public:
 	List<Stake*> createStakeList();
 	List<Track*> createTrackList();
 	int createUserList(List<Track*> &trackList, List<Stake*> &stakeList);
+	void init();
 	void createBrokerResultsFile();
+	void createBrokerFile();
 
+	static string brokerFileName;
 	static string stakesFileName;
 	static string raceResultsFileName;
 	static string resultsFileName;
 	static int brokerInterest;
+	static int brokerStartValue;
+	static int brokerValue;
 
 	struct Exception
 	{

@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<StakeList>
+<stakeList>
 
-<Stake>
-    <User_id>1</User_id>
-    <Track_id>1</Track_id>
-    <Team_id>1</Team_id>
-    <Stake_value>100</Stake_value>
-</Stake>
+<stake>
+    <id>1</id>
+    <user_id>1</user_id>
+    <track_id>1</track_id>
+    <team_id>1</team_id>
+    <value>100</value>
+</stake>
 
-<Stake>
-    
-    <Stake_id>2</Stake_id>
-    <User_id>1</User_id>
-    <Track_id>2</Track_id>
-    <Team_id>2</Team_id>
-    <Stake_value>50</Stake_value>
+<stake>
+    <id>2</id>
+    <user_id>2</user_id>
+    <track_id>1</track_id>
+    <team_id>2</team_id>
+    <value>50</value>
+</stake>
 
-</Stake>
+<stake>
+    <id>3</id>
+    <user_id>2</user_id>
+    <track_id>1</track_id>
+    <team_id>1</team_id>
+    <value>150</value>
+</stake>
 
-<Stake>
-    
-    <Stake_id>3</Stake_id>
-    <User_id>2</User_id>
-    <Track_id>1</Track_id>
-    <Team_id>1</Team_id>
-    <Stake_value>150</Stake_value>
+<stake>
+    <id>4</id>
+    <user_id>2</user_id>
+    <track_id>1</track_id>
+    <team_id>1</team_id>
+    <value>200</value>
+</stake>
 
-</Stake>
-
-<Stake>
-    
-    <Stake_id>4</Stake_id>
-    <User_id>1</User_id>
-    <Track_id>1</Track_id>
-    <Team_id>2</Team_id>
-    <Stake_value>250</Stake_value>
-
-</Stake>
-
-
-</StakeList>
+</stakeList>

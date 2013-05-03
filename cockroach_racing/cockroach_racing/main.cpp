@@ -1,17 +1,30 @@
 #include "Broker.h"
 
-int main() {
+int main(int argc, char *argv[]) {
 	Broker broker;
-	try
-	{
-		List<Stake*> stakeList = broker.createStakeList();
-		List<Track*> trackList = broker.createTrackList();
+	switch(*argv[1]) {
+	case '0' :
+		{
+			try
+			{
+				broker.init();
 
-		broker.createUserList(trackList, stakeList);
-		broker.createBrokerResultsFile();
-	}
-	catch (Broker::Exception e) {
-		cout << e.text;
+				List<Stake*> stakeList = broker.createStakeList();
+				List<Track*> trackList = broker.createTrackList();
+
+				broker.createUserList(trackList, stakeList);
+				broker.createBrokerResultsFile();
+				broker.createBrokerFile();
+			}
+			catch (Broker::Exception e) {
+				cout << e.text;
+			}
+			break;
+		}
+	default:
+		{
+			break;
+		}
 	}
 	system("pause");
 	return 0;
